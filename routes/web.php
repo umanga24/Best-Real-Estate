@@ -63,11 +63,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 		Route::resource('banner', 'BannerController');
 		Route::get('/segment', [SegmentController::class, 'index'])->name('segment.index');
 		Route::get('/segment/create', [SegmentController::class, 'create'])->name('segment.create');
-		Route::resource('municipality','MunicipalityController');
-		Route::resource('landareatype','LandAreaTypeController');
+		Route::resource('municipality', 'MunicipalityController');
+		Route::resource('landareatype', 'LandAreaTypeController');
 		Route::resource('propertyface', 'PropertyFaceController');
 		Route::resource('ward', 'WardController');
-		Route::resource('city','CityController');
+		Route::resource('city', 'CityController');
 		Route::resource('area', 'AreaController');
 
 
@@ -150,6 +150,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 
 		Route::get('/edit-product-images-details/{id}', 'ProductController@editProduct')->name('edit-product');
 		Route::post('/edit-product-images-details/{id}', 'ProductController@updateProduct')->name('product-update');
+		// Add multiple image of product after adding the product
+		Route::post('productimages/store', 'ProductImageController@store')->name('productimages.store');
+		Route::delete('productimages-destroy/{id}', 'ProductImageController@destroy')->name('productimages.destroy');
+
+
 
 		Route::get('/order-list/', 'OrderController@orderList')->name('order-list');
 		Route::get('/edit-order/{id}/', 'OrderController@updateOrder')->name('edit-order');

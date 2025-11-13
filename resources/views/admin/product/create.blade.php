@@ -476,18 +476,7 @@
                             <span class=" alert-danger">{{$errors->first('status')}}</span>
                             @endif
                             <div class="form-group">
-                                <div class="form-group">
-                                    <label for="images">Upload Product Images</label>
 
-                                    @if(isset($product_info) && $product_info->id)
-                                    <!-- Show file input only when editing -->
-                                    <input type="file" class="form-control" name="images[]" id="images" multiple accept="image/*">
-                                    <small class="text-muted">You can upload multiple images here.</small>
-                                    @else
-                                    <!-- Add product: hide file input -->
-                                    <p class="text-muted">You can add product images after creating the product.</p>
-                                    @endif
-                                </div>
 
 
                                 <!-- Preview Section -->
@@ -502,14 +491,47 @@
             </div>
 </div>
 </form>
+@if($product_info)
+<hr>
+<h4>Upload Product Images</h4>
 
+<form method="POST" action="{{ route('productimages.store') }}" enctype="multipart/form-data">
+    @csrf
+    <input type="hidden" name="product_id" value="{{ $product_info->id }}">
+
+    <div class="form-group">
+        <label>Select Images</label>
+        <input type="file" name="images[]" multiple class="form-control" accept="image/*" onchange="previewImages(event)">
+    </div>
+
+    <div id="image-preview" class="d-flex flex-wrap mb-3"></div>
+
+    <button type="submit" class="btn btn-success">Upload Images</button>
+</form>
+@if($product_info->images && $product_info->images->count())
+<div class="row mt-4">
+    @foreach($product_info->images as $img)
+    <div class="col-md-2 text-center mb-3">
+        
+		
+        <img src="{{ asset('images/listing/'.$img->images) }}" width="100" class="img-thumbnail">
+        <form action="{{ route('productimages.destroy', $img->id) }}" method="POST" style="margin-top:5px;">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this image?')">Delete</button>
+        </form>
+    </div>
+    @endforeach
 </div>
+@endif
+
+@endif
 
 @endsection
 @section('scripts')
 
 <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
-<script type="text/javascript" src="{{asset('/assets/admin/js/laravel-file-manager-ck-editor.js')}}"></script> -->
+<script type="text/javascript" src="{{asset('/assets/admin/js/laravel-file-manager-ck-editor.js')}}"></script>
 <script src="{{asset('/assets/admin/js/sweetalert.js')}}" type="text/javascript"></script>
 <script>
     // Ckeditor('highlight');
