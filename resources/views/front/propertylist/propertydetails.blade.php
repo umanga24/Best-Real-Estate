@@ -9,12 +9,13 @@
         <div class="col-lg-8 mb-4">
             <div class="col-md-9 mb-6 animated fadeIn">
                 <div class="owl-carousel header-carousel">
+                    @foreach($property->images as $img)
+
                     <div class="owl-carousel-item">
-                        <img class="img-fluid" src="{{ asset('/assets/front/img/carousel-1.jpg') }}" alt="Property Image">
+                        <img class="img-fluid" src="{{ asset('images/listing/'.$img->images) }}" alt="Property Image">
                     </div>
-                    <div class="owl-carousel-item">
-                        <img class="img-fluid" src="{{ asset('/assets/front/img/carousel-2.jpg') }}" alt="Property Image">
-                    </div>
+                    @endforeach
+
                 </div>
             </div>
         </div>
@@ -30,7 +31,7 @@
             <h3 class="text-danger">Price: Rs. {{ $property->price }}</h3>
             <hr>
 
-           
+
 
             <!-- Contact Information -->
             <h5 class="text-secondary">Contact Person</h5>
@@ -41,8 +42,8 @@
 
 
 
-             <!-- Property Description -->
-             <h5 class="text-secondary">Description</h5>
+            <!-- Property Description -->
+            <h5 class="text-secondary">Description</h5>
             <p>{!! $property->description ?? 'No description available.' !!}</p>
             <hr>
         </div>
@@ -85,16 +86,16 @@
                 </div>
             </div>
         </div>
-        <hr/>
+        <hr />
 
         <!-- Property Amenities -->
         <div class="col-lg-10">
             <h4 class="text-secondary">Amenities</h4>
-          
-                <li class=""></i> Example Amenity 1</li>
-                <li class=""></i> Example Amenity 2</li>
-                <li class=""></i> Example Amenity 3</li>
-           
+
+            <li class=""></i> Example Amenity 1</li>
+            <li class=""></i> Example Amenity 2</li>
+            <li class=""></i> Example Amenity 3</li>
+
         </div>
     </div>
 </div>
